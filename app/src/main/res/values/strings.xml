@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hover Starter App</string>
+    <string name="grant_permissions">Grant Permissions</string>
+</resources>
