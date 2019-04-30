@@ -3,7 +3,7 @@ package com.hover.starter.ui.main;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hover.starter.MainActivity;
+import com.hover.starter.PermissionsListener;
 import com.hover.starter.R;
 
 public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
+    public PermissionsListener mListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mListener = (PermissionsListener) context;
+    }
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -42,8 +50,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedStateInstance) {
         if(!MainActivity.hasAllPermissions(getContext())) {
-            Log.d("GrantPermissionsButton", "VISIBLE");
-            view.findViewById(R.id.grant_permissions_button).setVisibility(View.VISIBLE);
+            mListener.requestAdvancedPermissions();
         }
     }
 
