@@ -2,6 +2,9 @@ package com.hover.starter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -10,16 +13,20 @@ import android.os.Bundle;
 import android.os.Build;
 
 import com.hover.sdk.permissions.PermissionActivity;
+import com.hover.starter.ui.main.HoverActionListAdapter;
 import com.hover.starter.ui.main.MainFragment;
 
 import com.hover.sdk.api.Hover;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener {
 
+    static int REQUEST_PERMISSIONS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, MainFragment.newInstance())
@@ -41,6 +48,17 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     }
 
     public void requestAdvancedPermissions(){
-        startActivityForResult(new Intent(this, PermissionActivity.class), 1);
+        startActivityForResult(new Intent(this, PermissionActivity.class), REQUEST_PERMISSIONS);
+    }
+
+    public void fetch
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_PERMISSIONS) {
+            if (resultCode == RESULT_OK) {
+
+            }
+        }
     }
 }
