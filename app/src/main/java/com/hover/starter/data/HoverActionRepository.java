@@ -5,17 +5,24 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.hover.starter.network.NetworkOps;
+
 import java.util.List;
+
 
 public class HoverActionRepository {
 
+    private AppDatabase db;
     private HoverActionDao mActionDao;
     private LiveData<List<HoverAction>> mAllActions;
+    protected NetworkOps netOps;
+
 
     public HoverActionRepository(Application application) {
-        AppDatabase db = AppDatabase.getInstance(application);
+        db = AppDatabase.getInstance(application);
         mActionDao = db.actionDao();
         mAllActions = mActionDao.getAllActions();
+        netOps = new NetworkOps(application);
     }
 
     public LiveData<List<HoverAction>> getAllActions() {
@@ -38,6 +45,10 @@ public class HoverActionRepository {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
+    }
+
+    public void loadActions() {
+        new GetHoverActionsAsync(db, netOps).execute();
     }
 }
 

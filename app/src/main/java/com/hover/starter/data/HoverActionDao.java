@@ -6,8 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-
-
 import java.util.List;
 
 @Dao
@@ -29,4 +27,7 @@ public interface HoverActionDao {
 
     @Delete
     void delete(HoverAction action);
+
+    @Query("DELETE FROM actions")
+    void deleteAll();
 }

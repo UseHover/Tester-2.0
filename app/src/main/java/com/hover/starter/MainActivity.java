@@ -1,22 +1,18 @@
 package com.hover.starter;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Build;
-
-import com.hover.sdk.permissions.PermissionActivity;
-import com.hover.starter.ui.main.HoverActionListAdapter;
-import com.hover.starter.ui.main.MainFragment;
 
 import com.hover.sdk.api.Hover;
+import com.hover.sdk.permissions.PermissionActivity;
+import com.hover.starter.ui.main.MainFragment;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener {
 
@@ -50,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     public void requestAdvancedPermissions(){
         startActivityForResult(new Intent(this, PermissionActivity.class), REQUEST_PERMISSIONS);
     }
-
-    public void fetch
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,5 +1,6 @@
 package com.hover.starter.ui.main;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -18,10 +19,15 @@ import android.view.ViewGroup;
 import com.hover.starter.MainActivity;
 import com.hover.starter.PermissionsListener;
 import com.hover.starter.R;
+import com.hover.starter.data.HoverAction;
+
+import java.util.List;
 
 public class MainFragment extends Fragment {
 
     public PermissionsListener mListener;
+    private ActionViewModel mActionViewModel;
+    private HoverActionListAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -42,7 +48,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.main_fragment, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.action_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final HoverActionListAdapter adapter = new HoverActionListAdapter(getActivity());
+        adapter = new HoverActionListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -52,7 +58,14 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // TODO: Use the ViewModel
+        mActionViewModel = ViewModelProviders.of(this).get(ActionViewModel.class);
+        mActionViewModel.loadAllActions();
+        mActionViewModel.getAllActions().observe(this, new Observer<List<HoverAction>>() {
+            @Override
+            public void onChanged(@Nullable final List<HoverAction> actions) {
+                adapter.setActions(actions);
+            }
+        });
     }
 
     @Override

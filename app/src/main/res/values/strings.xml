@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Hover Starter App</string>
     <string name="grant_permissions">Grant Permissions</string>
+    <string name="url_builder">%1$s%2$s</string>
+    <string name="base_url">https://www.usehover.com/sdk/</string>
+    <string name="error_network">Failed. Please make sure you are connected to the internet</string>
 </resources>

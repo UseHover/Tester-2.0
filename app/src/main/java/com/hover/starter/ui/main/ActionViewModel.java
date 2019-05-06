@@ -23,5 +23,6 @@ public class ActionViewModel extends AndroidViewModel {
     }
 
     LiveData<List<HoverAction>> getAllActions() { return mAllActions; }
+    void loadAllActions() { mRepository.loadActions();}
     public void insert(HoverAction action) { mRepository.insert(action);}
 }
