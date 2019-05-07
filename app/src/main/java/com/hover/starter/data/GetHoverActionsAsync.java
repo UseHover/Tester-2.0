@@ -19,7 +19,6 @@ public class GetHoverActionsAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(final Void... params) {
-        mDao.deleteAll();
         try {
             String actions = mNetworkOps.download("custom_actions");
             JSONArray jsonArray = new JSONArray(actions);
@@ -27,7 +26,6 @@ public class GetHoverActionsAsync extends AsyncTask<Void, Void, Void> {
                 HoverAction action = new HoverAction(jsonArray.getJSONObject(i));
                 mDao.insert(action);
             }
-
         } catch (Exception e) {
             Log.d("HoverActionRepository", "download failed" +e.getMessage(),e);
         }

@@ -19,6 +19,7 @@ android {
 }
 
 repositories {
+    google()
     mavenCentral()
     maven { url 'http://maven.usehover.com/releases' }
 }
@@ -42,6 +43,9 @@ dependencies {
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha04"
+
+    // Material components for Android
+    implementation 'com.google.android.material:material:1.0.0'
 
     // Hover SDK
     implementation('com.hover:android-sdk:1.0.0') { transitive = true }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hover.starter.MainActivity;
 import com.hover.starter.PermissionsListener;
@@ -52,6 +53,19 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        final View button = rootView.findViewById(R.id.update_config);
+        button.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),
+                                getString(R.string.updating),
+                                Toast.LENGTH_SHORT).show();
+                        mActionViewModel.loadAllActions();
+                    }
+                }
+        );
+
         return rootView;
     }
 
@@ -73,6 +87,10 @@ public class MainFragment extends Fragment {
         if(!MainActivity.hasAllPermissions(getContext())) {
             mListener.requestAdvancedPermissions();
         }
+    }
+
+    public void updateConfig(View view) {
+        mActionViewModel.loadAllActions();
     }
 
 }
