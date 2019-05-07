@@ -24,7 +24,12 @@ public class GetHoverActionsAsync extends AsyncTask<Void, Void, Void> {
             JSONArray jsonArray = new JSONArray(actions);
             for (int i = 0; i < jsonArray.length(); i++) {
                 HoverAction action = new HoverAction(jsonArray.getJSONObject(i));
-                mDao.insert(action);
+                String uid = mDao.getById(action.uid);
+                if (uid == null)
+                    mDao.insert(action);
+                else
+                    mDao.update(action);
+
             }
         } catch (Exception e) {
             Log.d("HoverActionRepository", "download failed" +e.getMessage(),e);
