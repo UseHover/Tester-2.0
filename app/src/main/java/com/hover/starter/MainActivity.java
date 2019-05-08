@@ -7,9 +7,11 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.hover.sdk.api.Hover;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
     public static boolean hasAllPermissions(Context c) {

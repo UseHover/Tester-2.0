@@ -89,7 +89,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public void updateConfig(View view) {
+    public void updateConfig() {
         mActionViewModel.loadAllActions();
     }
 

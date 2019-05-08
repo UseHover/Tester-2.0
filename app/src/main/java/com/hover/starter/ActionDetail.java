@@ -24,7 +24,7 @@ public class ActionDetail extends AppCompatActivity {
             ActionDetailFragment actionDetailFragment = new ActionDetailFragment();
             actionDetailFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, actionDetailFragment)
+                    .replace(R.id.action_detail_container, actionDetailFragment)
                     .commitNow();
         }
     }
