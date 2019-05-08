@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ActionDetail"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +20,9 @@
         </activity>
 
         <meta-data
-            tools:replace="android:value"
             android:name="com.hover.ApiKey"
-            android:value="da4558365a88e8762f537b979c4e0cef"/>
+            android:value="da4558365a88e8762f537b979c4e0cef"
+            tools:replace="android:value" />
     </application>
 
 </manifest>

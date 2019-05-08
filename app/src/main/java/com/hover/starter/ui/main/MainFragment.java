@@ -49,7 +49,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.main_fragment, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.action_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new HoverActionListAdapter(getActivity());
+        adapter = new HoverActionListAdapter(getActivity(), (MainActivity) getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

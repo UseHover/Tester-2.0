@@ -13,13 +13,19 @@ import com.hover.starter.data.HoverAction;
 
 import java.util.List;
 
-public class HoverActionListAdapter extends RecyclerView.Adapter<HoverActionListAdapter.ActionViewHolder> {
+public class HoverActionListAdapter
+        extends RecyclerView.Adapter<HoverActionListAdapter.ActionViewHolder> {
+
+    private final OnActionListItemClickListener onActionListItemClickListener;
 
     class ActionViewHolder extends RecyclerView.ViewHolder {
+        private final View mView;
         private final TextView actionItemView;
+        private String actionId;
 
         private ActionViewHolder(View itemView) {
             super(itemView);
+            mView = itemView;
             actionItemView = itemView.findViewById(R.id.action_name);
         }
     }
@@ -27,7 +33,11 @@ public class HoverActionListAdapter extends RecyclerView.Adapter<HoverActionList
     private final LayoutInflater mInflater;
     private List<HoverAction> mActions;
 
-    public HoverActionListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public HoverActionListAdapter(Context context,
+                                  OnActionListItemClickListener onActionListItemClickListener) {
+        mInflater = LayoutInflater.from(context);
+        this.onActionListItemClickListener = onActionListItemClickListener;
+    }
 
     @Override
     public ActionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,13 +46,21 @@ public class HoverActionListAdapter extends RecyclerView.Adapter<HoverActionList
     }
 
     @Override
-    public void onBindViewHolder(ActionViewHolder holder, int position) {
+    public void onBindViewHolder(final ActionViewHolder holder, int position) {
         if (mActions != null) {
             HoverAction current = mActions.get(position);
+            holder.actionId = current.uid;
             holder.actionItemView.setText(current.getActionName());
         } else {
             holder.actionItemView.setText("No actions fetched yet");
         }
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onActionListItemClickListener != null)
+                    onActionListItemClickListener.onActionListItemClick(holder.actionId);
+            }
+        });
     }
 
     void setActions(List<HoverAction> actions){
@@ -55,5 +73,9 @@ public class HoverActionListAdapter extends RecyclerView.Adapter<HoverActionList
         if (mActions != null)
             return mActions.size();
         else return 0;
+    }
+
+    public interface OnActionListItemClickListener {
+        void onActionListItemClick(String actionId);
     }
 }

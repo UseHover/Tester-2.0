@@ -6,16 +6,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
+import com.hover.starter.data.HoverAction;
+import com.hover.starter.ui.main.HoverActionListAdapter;
 import com.hover.starter.ui.main.MainFragment;
 
-public class MainActivity extends AppCompatActivity implements PermissionsListener {
+public class MainActivity extends AppCompatActivity implements PermissionsListener, HoverActionListAdapter.OnActionListItemClickListener {
 
+    private static final String TAG = "MainActivity";
     static int REQUEST_PERMISSIONS = 1;
 
     @Override
@@ -54,5 +59,13 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 
             }
         }
+    }
+
+    @Override
+    public void onActionListItemClick(String actionId) {
+        Intent intent = new Intent(this, ActionDetail.class);
+        Log.d(TAG, "mActionId: " + actionId);
+        intent.putExtra("actionId", actionId);
+        startActivity(intent);
     }
 }

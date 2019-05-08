@@ -29,6 +29,10 @@ public class HoverActionRepository {
         return mAllActions;
     }
 
+    public LiveData<HoverAction> getAction(String mActionId) {
+        return mActionDao.getAction(mActionId);
+    }
+
     public void insert(HoverAction action) {
         new insertAsyncTask(mActionDao).execute(action);
     }
