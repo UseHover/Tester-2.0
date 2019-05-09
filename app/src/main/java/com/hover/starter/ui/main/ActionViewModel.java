@@ -37,6 +37,4 @@ public class ActionViewModel extends AndroidViewModel {
     }
 
     void loadAllActions() { mRepository.loadActions();}
-
-    public void insert(HoverAction action) { mRepository.insert(action);}
 }
