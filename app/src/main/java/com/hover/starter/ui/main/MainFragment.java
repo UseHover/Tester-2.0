@@ -73,7 +73,6 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActionViewModel = ViewModelProviders.of(this).get(ActionViewModel.class);
-        mActionViewModel.loadAllActions();
         mActionViewModel.getAllActions().observe(this, new Observer<List<HoverAction>>() {
             @Override
             public void onChanged(@Nullable final List<HoverAction> actions) {
@@ -87,10 +86,6 @@ public class MainFragment extends Fragment {
         if(!MainActivity.hasAllPermissions(getContext())) {
             mListener.requestAdvancedPermissions();
         }
-    }
-
-    public void updateConfig() {
-        mActionViewModel.loadAllActions();
     }
 
 }

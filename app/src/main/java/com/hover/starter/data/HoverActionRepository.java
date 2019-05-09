@@ -37,6 +37,10 @@ public class HoverActionRepository {
         new insertAsyncTask(mActionDao).execute(action);
     }
 
+    public HoverAction getAnyAction() {
+        return mActionDao.getAnyAction();
+    }
+
     private static class insertAsyncTask extends AsyncTask<HoverAction, Void, Void> {
         private HoverActionDao mAsyncTaskDao;
 

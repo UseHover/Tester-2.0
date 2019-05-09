@@ -19,10 +19,10 @@ public class GetHoverActionsAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(final Void... params) {
-        mDao.deleteAll();
         try {
             String actions = mNetworkOps.download("custom_actions");
             JSONArray jsonArray = new JSONArray(actions);
+            mDao.deleteAll();
             for (int i = 0; i < jsonArray.length(); i++) {
                 HoverAction action = new HoverAction(jsonArray.getJSONObject(i));
                 mDao.insert(action);
