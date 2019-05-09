@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hover.starter.ui.actions.ActionDetailFragment;
@@ -56,5 +57,12 @@ public class ActionDetail extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setTitle(String title, String subtitle) {
+        if (findViewById(R.id.layout_title) != null) {
+            ((TextView) findViewById(R.id.title)).setText(title);
+            ((TextView) findViewById(R.id.subtitle)).setText(subtitle);
+        }
     }
 }

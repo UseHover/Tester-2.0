@@ -9,19 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.hover.starter.ActionDetail;
 import com.hover.starter.R;
 import com.hover.starter.data.HoverAction;
 
-import java.util.List;
-
 public class ActionDetailFragment extends Fragment {
-    private final String TAG = "ActionDetailFragment";
 
     private ActionDetailViewModel mViewModel;
     private String mActionId;
@@ -33,7 +29,6 @@ public class ActionDetailFragment extends Fragment {
         if (getArguments().containsKey("actionId")) {
             mActionId = getArguments().getString("actionId");
         }
-        Log.d(TAG, "mActionId: " +mActionId);
     }
 
     @Nullable
@@ -46,7 +41,7 @@ public class ActionDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final TextView textView = getView().findViewById(R.id.message);
+
         mViewModel = ViewModelProviders.of(this,
                 new ActionDetailViewModelFactory(getActivity().getApplication(), mActionId))
                 .get(ActionDetailViewModel.class);
@@ -55,11 +50,14 @@ public class ActionDetailFragment extends Fragment {
 
             @Override
             public void onChanged(HoverAction action) {
-                textView.setText(action.getActionName());
+                setActionDetails(action);
             }
         });
+    }
 
-
+    private void setActionDetails(HoverAction action) {
+        ((ActionDetail) getActivity()).setTitle(action.uid + ". " + action.actionName,
+                action.actionNetwork);
     }
 
 
