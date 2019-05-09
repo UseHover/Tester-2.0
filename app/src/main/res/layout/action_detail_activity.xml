@@ -78,6 +78,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@+id/action_detail_container"
         app:layout_anchorGravity="top|end"
-        android:src="@drawable/ic_play"/>
+        android:src="@drawable/ic_play"
+        android:onClick="runAction"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

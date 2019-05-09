@@ -24,7 +24,7 @@
 
         <meta-data
             android:name="com.hover.ApiKey"
-            android:value="da4558365a88e8762f537b979c4e0cef"
+            android:value="ee26065d0c850e00ab3835a2e44d29bd"
             tools:replace="android:value" />
     </application>
 
