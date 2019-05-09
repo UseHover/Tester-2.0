@@ -4,25 +4,25 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
-import com.hover.starter.network.NetworkOps;
+import com.hover.starter.data.workers.GetHoverActionsWorker;
 
 import java.util.List;
 
 
 public class HoverActionRepository {
 
-    private AppDatabase db;
     private HoverActionDao mActionDao;
     private LiveData<List<HoverAction>> mAllActions;
-    protected NetworkOps netOps;
+    private WorkManager mWorkManager;
 
 
     public HoverActionRepository(Application application) {
-        db = AppDatabase.getInstance(application);
-        mActionDao = db.actionDao();
+        mActionDao = AppDatabase.getInstance(application).actionDao();
         mAllActions = mActionDao.getAllActions();
-        netOps = new NetworkOps(application);
+        mWorkManager = WorkManager.getInstance();
     }
 
     public LiveData<List<HoverAction>> getAllActions() {
@@ -56,7 +56,7 @@ public class HoverActionRepository {
     }
 
     public void loadActions() {
-        new GetHoverActionsAsync(db, netOps).execute();
+        mWorkManager.enqueue(OneTimeWorkRequest.from(GetHoverActionsWorker.class));
     }
 }
 
