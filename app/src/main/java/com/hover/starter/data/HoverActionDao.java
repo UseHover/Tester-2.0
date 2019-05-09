@@ -21,7 +21,7 @@ public interface HoverActionDao {
     List<HoverAction> loadAllbyIds(int[] actionIds);
 
     @Query("SELECT * FROM actions WHERE uid = :uid LIMIT 1")
-    LiveData<HoverAction> getAction(String uid);
+    HoverAction getAction(String uid);
 
     @Insert
     void insertAll(HoverAction... actions);

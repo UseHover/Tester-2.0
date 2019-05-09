@@ -29,7 +29,7 @@ public class HoverActionRepository {
         return mAllActions;
     }
 
-    public LiveData<HoverAction> getAction(String mActionId) {
+    public HoverAction getAction(String mActionId) {
         return mActionDao.getAction(mActionId);
     }
 
