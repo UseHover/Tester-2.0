@@ -89,6 +89,7 @@ public class ActionDetail extends AppCompatActivity {
     public void runAction(View view) {
         Intent i = new HoverParameters.Builder(ActionDetail.this)
                 .request(mActionId)
+                .style(R.style.SDKTheme)
                 .buildIntent();
         startActivityForResult(i, 0);
     }
