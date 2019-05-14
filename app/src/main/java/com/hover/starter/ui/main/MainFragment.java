@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.hover.starter.MainActivity;
 import com.hover.starter.PermissionsListener;
 import com.hover.starter.R;
-import com.hover.starter.data.HoverAction;
+import com.hover.starter.data.actions.HoverAction;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new HoverActionListAdapter(getActivity(), (MainActivity) getActivity());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final View button = rootView.findViewById(R.id.update_config);
         button.setOnClickListener(

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.starter.R;
-import com.hover.starter.data.HoverAction;
+import com.hover.starter.data.actions.HoverAction;
 
 import java.util.List;
 

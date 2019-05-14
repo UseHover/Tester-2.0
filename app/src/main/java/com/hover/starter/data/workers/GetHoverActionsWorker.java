@@ -8,8 +8,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.hover.starter.data.AppDatabase;
-import com.hover.starter.data.HoverAction;
-import com.hover.starter.data.HoverActionDao;
+import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.data.actions.HoverActionDao;
 import com.hover.starter.network.NetworkOps;
 
 import org.json.JSONArray;

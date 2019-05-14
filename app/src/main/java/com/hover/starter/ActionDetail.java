@@ -1,9 +1,5 @@
 package com.hover.starter;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +9,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hover.sdk.api.HoverParameters;
 import com.hover.starter.ui.actions.ActionDetailFragment;
+import com.hover.starter.ui.actions.HoverResultListAdapter;
 
-public class ActionDetail extends AppCompatActivity {
+public class ActionDetail extends AppCompatActivity implements HoverResultListAdapter.OnResultListItemClickListener {
 
     private static final String TAG = "ActionDetail";
     private String mActionId;
@@ -68,10 +70,11 @@ public class ActionDetail extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            String[] sessionTextArr = data.getStringArrayExtra("ussd_messages");
-            String uuid = data.getStringExtra("uuid");
-            Log.d(TAG, "uuid: "+ uuid + "\n ussd_messages: " + sessionTextArr);
+            ActionDetailFragment actionDetailFragment = (ActionDetailFragment) getSupportFragmentManager().findFragmentById(R.id.action_detail_container);
+            assert actionDetailFragment != null;
+            actionDetailFragment.onResultReceived(data);
         } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
             Log.e(TAG, data.getStringExtra("error"));
             Toast.makeText(this, "Error: " + data.getStringExtra("error"),
@@ -92,5 +95,18 @@ public class ActionDetail extends AppCompatActivity {
                 .style(R.style.SDKTheme)
                 .buildIntent();
         startActivityForResult(i, 0);
+    }
+
+    private void showResultDialog(String resultId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Result id: "+ resultId)
+                .setMessage("Coming soon");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onResultListItemClick(String resultId) {
+        showResultDialog(resultId);
     }
 }
