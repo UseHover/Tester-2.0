@@ -25,7 +25,7 @@ public class ActionDetailFragment extends Fragment {
 
     private ActionDetailViewModel mViewModel;
     private HoverResultListAdapter adapter;
-    private String mActionId;
+    public String mActionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

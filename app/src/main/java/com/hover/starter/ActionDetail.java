@@ -22,7 +22,6 @@ import com.hover.starter.ui.actions.HoverResultListAdapter;
 public class ActionDetail extends AppCompatActivity implements HoverResultListAdapter.OnResultListItemClickListener {
 
     private static final String TAG = "ActionDetail";
-    private String mActionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
 
             if (intent.getStringExtra("actionId") == null)
                 return;
-            mActionId = intent.getStringExtra("actionId");
+            String actionId = intent.getStringExtra("actionId");
             Bundle bundle = new Bundle();
-            bundle.putString("actionId", mActionId);
+            bundle.putString("actionId", actionId);
             ActionDetailFragment actionDetailFragment = new ActionDetailFragment();
             actionDetailFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
@@ -72,7 +71,7 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            ActionDetailFragment actionDetailFragment = (ActionDetailFragment) getSupportFragmentManager().findFragmentById(R.id.action_detail_container);
+            ActionDetailFragment actionDetailFragment = getFragment();
             assert actionDetailFragment != null;
             actionDetailFragment.onResultReceived(data);
         } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
@@ -90,8 +89,9 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
     }
 
     public void runAction(View view) {
+        ActionDetailFragment actionDetailFragment = getFragment();
         Intent i = new HoverParameters.Builder(ActionDetail.this)
-                .request(mActionId)
+                .request(actionDetailFragment.mActionId)
                 .style(R.style.SDKTheme)
                 .buildIntent();
         startActivityForResult(i, 0);
@@ -103,6 +103,10 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
                 .setMessage("Coming soon");
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private ActionDetailFragment getFragment() {
+        return (ActionDetailFragment) getSupportFragmentManager().findFragmentById(R.id.action_detail_container);
     }
 
     @Override
