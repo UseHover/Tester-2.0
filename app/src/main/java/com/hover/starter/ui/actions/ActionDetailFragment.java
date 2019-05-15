@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hover.starter.ActionDetail;
 import com.hover.starter.R;
 import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.results.HoverResult;
+import com.hover.starter.data.transactions.HoverTransaction;
 
 import java.util.List;
 
 public class ActionDetailFragment extends Fragment {
 
     private ActionDetailViewModel mViewModel;
-    private HoverResultListAdapter adapter;
+    private HoverTransactionListAdapter adapter;
     public String mActionId;
 
     @Override
@@ -42,9 +42,9 @@ public class ActionDetailFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         setRetainInstance(true);
         View rootView = inflater.inflate(R.layout.action_detail_fragment, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.result_list);
+        RecyclerView recyclerView = rootView.findViewById(R.id.transaction_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new HoverResultListAdapter(getActivity(), (ActionDetail) getActivity());
+        adapter = new HoverTransactionListAdapter(getActivity(), (ActionDetail) getActivity());
         recyclerView.setAdapter(adapter);
 
         return rootView;
@@ -65,10 +65,10 @@ public class ActionDetailFragment extends Fragment {
                 setActionDetails(action);
             }
         });
-        mViewModel.getAllResultsByActionId().observe(this, new Observer<List<HoverResult>>() {
+        mViewModel.getAllTransactionsByActionId().observe(this, new Observer<List<HoverTransaction>>() {
             @Override
-            public void onChanged(List<HoverResult> hoverResults) {
-                adapter.setResults(hoverResults);
+            public void onChanged(List<HoverTransaction> hoverResults) {
+                adapter.setTransactions(hoverResults);
             }
         });
     }
@@ -79,6 +79,6 @@ public class ActionDetailFragment extends Fragment {
     }
 
     public void onResultReceived(Intent data) {
-        mViewModel.insertResult(data);
+        mViewModel.insertTransaction(data);
     }
 }
