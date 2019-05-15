@@ -8,5 +8,5 @@
     <string name="updated">Updated all configs.</string>
     <string name="subtitle">Service name</string>
     <string name="title">Action Name</string>
-    <string name="results">Results</string>
+    <string name="transactions">Transactions</string>
 </resources>

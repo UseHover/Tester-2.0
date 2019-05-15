@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hover.starter.data.HoverRepository;
 import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.results.HoverResult;
+import com.hover.starter.data.transactions.HoverTransaction;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -37,8 +37,8 @@ public class ActionDetailViewModel extends AndroidViewModel {
         return action;
     }
 
-    LiveData<List<HoverResult>> getAllResultsByActionId() {
-        return mRepository.getAllResultsByActionId(mActionId);
+    LiveData<List<HoverTransaction>> getAllTransactionsByActionId() {
+        return mRepository.getAllTransactionsByActionId(mActionId);
     }
 
     void loadAction(){
@@ -51,13 +51,13 @@ public class ActionDetailViewModel extends AndroidViewModel {
         }).start();
     }
 
-    public void insertResult(Intent data) {
-        final HoverResult result = new HoverResult(data);
+    public void insertTransaction(Intent data) {
+        final HoverTransaction transaction = new HoverTransaction(data);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                mRepository.insertResult(result);
+                mRepository.insertTransaction(transaction);
             }
         });
     }

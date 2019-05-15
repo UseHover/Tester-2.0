@@ -3,7 +3,6 @@ package com.hover.starter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -17,9 +16,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hover.sdk.api.HoverParameters;
 import com.hover.starter.ui.actions.ActionDetailFragment;
-import com.hover.starter.ui.actions.HoverResultListAdapter;
+import com.hover.starter.ui.actions.HoverTransactionListAdapter;
 
-public class ActionDetail extends AppCompatActivity implements HoverResultListAdapter.OnResultListItemClickListener {
+public class ActionDetail extends AppCompatActivity implements HoverTransactionListAdapter.OnTransactionListItemClickListener {
 
     private static final String TAG = "ActionDetail";
 
@@ -75,7 +74,6 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
             assert actionDetailFragment != null;
             actionDetailFragment.onResultReceived(data);
         } else if (requestCode == 0 && resultCode == Activity.RESULT_CANCELED) {
-            Log.e(TAG, data.getStringExtra("error"));
             Toast.makeText(this, "Error: " + data.getStringExtra("error"),
                     Toast.LENGTH_LONG).show();
         }
@@ -110,7 +108,7 @@ public class ActionDetail extends AppCompatActivity implements HoverResultListAd
     }
 
     @Override
-    public void onResultListItemClick(String resultId) {
-        showResultDialog(resultId);
+    public void onTransactionListItemClick(String transactionId) {
+        showResultDialog(transactionId);
     }
 }

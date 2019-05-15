@@ -14,15 +14,15 @@
         android:paddingBottom="16dp"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:text="@string/results"/>
+        android:text="@string/transactions"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/result_list"
+        android:id="@+id/transaction_list"
         android:name="com.hover.tester.ActionDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.hover.tester.list.ActionDetailFragment"
-        tools:listitem="@layout/result_item"/>
+        tools:listitem="@layout/transaction_item"/>
 
 </LinearLayout>

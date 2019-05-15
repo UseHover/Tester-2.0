@@ -35,7 +35,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.hover.starter.CONFIRMED_TRANSACTION"/>
+                <action android:name="com.hover.starter.v1.CONFIRMED_TRANSACTION"/>
             </intent-filter>
         </receiver>
 
