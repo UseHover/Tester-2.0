@@ -26,6 +26,7 @@ public class HoverTransaction {
     public HoverTransaction(Intent data) {
         uuid = data.getStringExtra("uuid");
         actionId = data.getStringExtra("action_id");
+        status = data.getStringExtra("status");
         ussdMessages = processUssdMessages(data.getStringArrayExtra("ussd_messages"));
     }
 

@@ -5,6 +5,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +19,18 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
 
     class TransactionViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
-        private final TextView ussdMessagesTextView;
+        private final TextView responseMessageTextView;
         private final TextView timestampTextView;
+        private final ImageView statusIcon;
+
         private String transactionId;
 
         private TransactionViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            ussdMessagesTextView = itemView.findViewById(R.id.transaction_text);
+            responseMessageTextView = itemView.findViewById(R.id.transaction_text);
             timestampTextView = itemView.findViewById(R.id.timestamp);
+            statusIcon = itemView.findViewById(R.id.status_icon);
         }
     }
 
@@ -53,11 +57,12 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
         if (mTransactions != null) {
             HoverTransaction current = mTransactions.get(position);
             holder.transactionId = current.uuid;
-            holder.ussdMessagesTextView.setText(current.responseMessage);
+            holder.responseMessageTextView.setText(current.responseMessage);
             String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", current.requestTimestamp).toString();
             holder.timestampTextView.setText(date);
+            holder.statusIcon.setImageResource(getIcon(current.status));
         } else {
-            holder.ussdMessagesTextView.setText("No transactions captured yet");
+            holder.responseMessageTextView.setText("No transactions captured yet");
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener(){
@@ -84,5 +89,15 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
 
     public interface OnTransactionListItemClickListener {
         void onTransactionListItemClick(String transactionId);
+    }
+
+    private int getIcon(String status) {
+        if (status == null) return R.drawable.circle_untested;
+        switch (status){
+            case "failed": return R.drawable.circle_fails;
+            case "pending": return R.drawable.circle_unknown;
+            case "succeeded": return R.drawable.circle_passes;
+            default: return R.drawable.circle_untested;
+        }
     }
 }

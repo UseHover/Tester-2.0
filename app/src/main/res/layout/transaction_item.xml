@@ -7,6 +7,11 @@
     android:paddingBottom="@dimen/standard_padding"
     android:gravity="center_vertical|start">
 
+    <ImageView android:id="@+id/status_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@drawable/circle_untested"/>
 
     <TextView android:id="@+id/transaction_text"
         android:layout_width="0dp"
