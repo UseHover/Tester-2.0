@@ -1,6 +1,7 @@
 package com.hover.starter.ui.actions;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,9 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
         if (mTransactions != null) {
             HoverTransaction current = mTransactions.get(position);
             holder.transactionId = current.uuid;
-            holder.ussdMessagesTextView.setText(current.ussdMessages);
-            holder.timestampTextView.setText(String.valueOf(current.requestTimestamp));
+            holder.ussdMessagesTextView.setText(current.responseMessage);
+            String date = DateFormat.format("dd-MM-yyyy hh:mm:ss", current.requestTimestamp).toString();
+            holder.timestampTextView.setText(date);
         } else {
             holder.ussdMessagesTextView.setText("No transactions captured yet");
         }

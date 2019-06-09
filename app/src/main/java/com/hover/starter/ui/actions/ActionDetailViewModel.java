@@ -2,6 +2,8 @@ package com.hover.starter.ui.actions;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -51,13 +53,34 @@ public class ActionDetailViewModel extends AndroidViewModel {
         }).start();
     }
 
-    public void insertTransaction(Intent data) {
+    void insertTransaction(Intent data) {
         final HoverTransaction transaction = new HoverTransaction(data);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 mRepository.insertTransaction(transaction);
+            }
+        });
+    }
+
+    void insertTransaction(Bundle data) {
+
+        final HoverTransaction transaction = new HoverTransaction(data);
+        Log.d("ActionDetailViewModel", "action_id: " + transaction.actionId);
+        Log.d("ActionDetailViewModel", "status: " + transaction.status);
+        Log.d("ActionDetailViewModel", "responseMessage: " + transaction.responseMessage);
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                HoverTransaction existingTransaction = mRepository.getTransaction(transaction.uuid);
+                if (existingTransaction != null) {
+                    transaction.id = existingTransaction.id;
+                    mRepository.updateTransaction(transaction);
+                } else {
+                    mRepository.insertTransaction(transaction);
+                }
             }
         });
     }

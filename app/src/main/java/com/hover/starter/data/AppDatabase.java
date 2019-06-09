@@ -24,7 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE `transactions` (`id` INTEGER, "
-                    + "`uuid` TEXT, `action_id` TEXT, `ussd_messages` TEXT, "
+                    + "`uuid` TEXT, `action_id` TEXT, `ussd_messages` TEXT, `response_message` TEXT,"
                     + "`request_timestamp` INTEGER, `update_timestamp` INTEGER, "
                     + "`status` TEXT, `status_meaning` TEXT, `status_description` TEXT, "
                     + "`transaction_extras` TEXT,  PRIMARY KEY(`id`))");

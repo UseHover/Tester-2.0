@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     @Override
     public void onActionListItemClick(String actionId) {
         Intent intent = new Intent(this, ActionDetail.class);
-        Log.d(TAG, "mActionId: " + actionId);
-        intent.putExtra("actionId", actionId);
+        intent.putExtra("action_id", actionId);
         startActivity(intent);
     }
 }

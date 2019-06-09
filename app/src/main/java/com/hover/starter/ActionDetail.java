@@ -1,8 +1,12 @@
 package com.hover.starter;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hover.sdk.api.HoverParameters;
@@ -28,12 +33,11 @@ public class ActionDetail extends AppCompatActivity implements HoverTransactionL
         setContentView(R.layout.action_detail_activity);
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-
-            if (intent.getStringExtra("actionId") == null)
+            Log.d(TAG, "has uuid: " + intent.hasExtra("uuid"));
+            if (!intent.hasExtra("action_id"))
                 return;
-            String actionId = intent.getStringExtra("actionId");
             Bundle bundle = new Bundle();
-            bundle.putString("actionId", actionId);
+            bundle.putAll(intent.getExtras());
             ActionDetailFragment actionDetailFragment = new ActionDetailFragment();
             actionDetailFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
@@ -92,7 +96,24 @@ public class ActionDetail extends AppCompatActivity implements HoverTransactionL
                 .request(actionDetailFragment.mActionId)
                 .style(R.style.SDKTheme)
                 .buildIntent();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mSMSReceiver,
+                new IntentFilter(getPackageName() + ".SMS_MISS"));
         startActivityForResult(i, 0);
+    }
+
+    private BroadcastReceiver mSMSReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            unregisterSMSReceiver();
+            Log.e(TAG, "Got an sms");
+        }
+    };
+
+    public void unregisterSMSReceiver() {
+        if (mSMSReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mSMSReceiver);
+            mSMSReceiver = null;
+        }
     }
 
     private void showResultDialog(String resultId) {

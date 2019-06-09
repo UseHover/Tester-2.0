@@ -55,8 +55,16 @@ public class HoverRepository {
         mTransactionDao.insert(transaction);
     }
 
+    public void updateTransaction(HoverTransaction transaction) {
+        mTransactionDao.update(transaction);
+    }
+
     public LiveData<List<HoverTransaction>> getAllTransactions() {
         return mTransactionDao.getAllTransactions();
+    }
+
+    public HoverTransaction getTransaction(String uuid) {
+        return mTransactionDao.getTransaction(uuid);
     }
 }
 

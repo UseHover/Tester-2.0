@@ -48,5 +48,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     // Hover SDK
-    implementation('com.hover:android-sdk:1.0.1') { transitive = true }
+    implementation('com.hover:android-sdk:1.2.1') { transitive = true }
 }

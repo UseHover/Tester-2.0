@@ -2,6 +2,7 @@ package com.hover.starter.ui.actions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,10 @@ public class ActionDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        if (getArguments().containsKey("actionId")) {
-            mActionId = getArguments().getString("actionId");
+        if (getArguments().containsKey("action_id")) {
+            mActionId = getArguments().getString("action_id");
         }
+
     }
 
     @Nullable
@@ -53,11 +55,14 @@ public class ActionDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("ActionDetailFragment", "has uuid:" + getArguments().containsKey("uuid"));
+
 
         mViewModel = ViewModelProviders.of(this,
                 new ActionDetailViewModelFactory(getActivity().getApplication(), mActionId))
                 .get(ActionDetailViewModel.class);
 
+        if (getArguments().containsKey("uuid")) mViewModel.insertTransaction(getArguments());
         mViewModel.getById().observe(this, new Observer<HoverAction>() {
 
             @Override
@@ -79,6 +84,8 @@ public class ActionDetailFragment extends Fragment {
     }
 
     public void onResultReceived(Intent data) {
+        Bundle b = data.getExtras();
+        Log.d("ActionDetailFragment","has action_id "+ b.containsKey("action_id"));
         mViewModel.insertTransaction(data);
     }
 }
