@@ -13,10 +13,10 @@ import java.util.List;
 @Dao
 public interface HoverTransactionDao {
 
-    @Query("SELECT * FROM transactions")
+    @Query("SELECT * FROM transactions ORDER BY request_timestamp DESC")
     LiveData<List<HoverTransaction>> getAllTransactions();
 
-    @Query("SELECT * FROM transactions where action_id = :actionId")
+    @Query("SELECT * FROM transactions where action_id = :actionId ORDER BY request_timestamp DESC")
     LiveData<List<HoverTransaction>> getTransactionsByActionId(String actionId);
 
     @Query("SELECT * FROM transactions LIMIT 1")
