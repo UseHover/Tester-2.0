@@ -92,10 +92,8 @@ public class ActionDetail extends AppCompatActivity implements HoverTransactionL
 
     public void runAction(View view) {
         ActionDetailFragment actionDetailFragment = getFragment();
-        Intent i = new HoverParameters.Builder(ActionDetail.this)
-                .request(actionDetailFragment.mActionId)
-                .style(R.style.SDKTheme)
-                .buildIntent();
+        Intent i = actionDetailFragment.initializeHoverParametersBuilder();
+
         LocalBroadcastManager.getInstance(this).registerReceiver(mSMSReceiver,
                 new IntentFilter(getPackageName() + ".SMS_MISS"));
         startActivityForResult(i, 0);

@@ -8,17 +8,20 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.hover.starter.data.actionVariables.HoverActionVariable;
+import com.hover.starter.data.actionVariables.HoverActionVariableDao;
 import com.hover.starter.data.transactions.HoverTransaction;
 import com.hover.starter.data.actions.HoverAction;
 import com.hover.starter.data.actions.HoverActionDao;
 import com.hover.starter.data.transactions.HoverTransactionDao;
 
-@Database(entities = {HoverAction.class, HoverTransaction.class}, version = 2)
+@Database(entities = {HoverAction.class, HoverTransaction.class, HoverActionVariable.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
     public abstract HoverActionDao actionDao();
     public abstract HoverTransactionDao transactionDao();
+    public abstract HoverActionVariableDao actionTransactionDao();
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override

@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.hover.starter.data.actionVariables.HoverActionVariable;
+import com.hover.starter.data.actionVariables.HoverActionVariableDao;
 import com.hover.starter.data.actions.HoverAction;
 import com.hover.starter.data.actions.HoverActionDao;
 import com.hover.starter.data.transactions.HoverTransaction;
@@ -19,6 +21,7 @@ public class HoverRepository {
 
     private HoverActionDao mActionDao;
     private HoverTransactionDao mTransactionDao;
+    private HoverActionVariableDao mActionVariableDao;
     private LiveData<List<HoverAction>> mAllActions;
     private WorkManager mWorkManager;
 
@@ -27,6 +30,7 @@ public class HoverRepository {
         AppDatabase db = AppDatabase.getInstance(application);
         mActionDao = db.actionDao();
         mTransactionDao = db.transactionDao();
+        mActionVariableDao = db.actionTransactionDao();
         mAllActions = mActionDao.getAllActions();
         mWorkManager = WorkManager.getInstance();
     }
@@ -65,6 +69,14 @@ public class HoverRepository {
 
     public HoverTransaction getTransaction(String uuid) {
         return mTransactionDao.getTransaction(uuid);
+    }
+
+    public LiveData<List<HoverActionVariable>> getAllActionVariablesByActionId(String action_id) {
+        return mActionVariableDao.getAllActionVariablesByActionId(action_id);
+    }
+
+    public void insertActionVariable(HoverActionVariable actionVariable) {
+        mActionVariableDao.insert(actionVariable);
     }
 }
 

@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.hover.starter.data.HoverRepository;
+import com.hover.starter.data.actionVariables.HoverActionVariable;
 import com.hover.starter.data.actions.HoverAction;
 import com.hover.starter.data.transactions.HoverTransaction;
 
@@ -42,6 +43,12 @@ public class ActionDetailViewModel extends AndroidViewModel {
     LiveData<List<HoverTransaction>> getAllTransactionsByActionId() {
         return mRepository.getAllTransactionsByActionId(mActionId);
     }
+
+    LiveData<List<HoverActionVariable>> getAllActionVariablesByActionId() {
+        return mRepository.getAllActionVariablesByActionId(mActionId);
+    }
+
+
 
     void loadAction(){
         new Thread(new Runnable() {

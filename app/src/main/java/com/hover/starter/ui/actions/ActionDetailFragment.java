@@ -15,8 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hover.sdk.api.HoverParameters;
 import com.hover.starter.ActionDetail;
 import com.hover.starter.R;
+import com.hover.starter.data.actionVariables.HoverActionVariable;
 import com.hover.starter.data.actions.HoverAction;
 import com.hover.starter.data.transactions.HoverTransaction;
 
@@ -25,17 +27,19 @@ import java.util.List;
 public class ActionDetailFragment extends Fragment {
 
     private ActionDetailViewModel mViewModel;
-    private HoverTransactionListAdapter adapter;
+    private HoverTransactionListAdapter transactionAdapter;
+    private HoverActionVariableListAdapter actionVariableListAdapter;
+    private RecyclerView actionVariableRecyclerView;
     public String mActionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        assert getArguments() != null;
         if (getArguments().containsKey("action_id")) {
             mActionId = getArguments().getString("action_id");
         }
-
     }
 
     @Nullable
@@ -44,10 +48,15 @@ public class ActionDetailFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         setRetainInstance(true);
         View rootView = inflater.inflate(R.layout.action_detail_fragment, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.transaction_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new HoverTransactionListAdapter(getActivity(), (ActionDetail) getActivity());
-        recyclerView.setAdapter(adapter);
+        RecyclerView transactionRecyclerView = rootView.findViewById(R.id.transaction_list);
+        transactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        transactionAdapter = new HoverTransactionListAdapter(getActivity(), (ActionDetail) getActivity());
+        transactionRecyclerView.setAdapter(transactionAdapter);
+
+        actionVariableRecyclerView = rootView.findViewById(R.id.variable_list);
+        actionVariableRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        actionVariableListAdapter = new HoverActionVariableListAdapter(getActivity());
+        actionVariableRecyclerView.setAdapter(actionVariableListAdapter);
 
         return rootView;
     }
@@ -73,7 +82,14 @@ public class ActionDetailFragment extends Fragment {
         mViewModel.getAllTransactionsByActionId().observe(this, new Observer<List<HoverTransaction>>() {
             @Override
             public void onChanged(List<HoverTransaction> hoverResults) {
-                adapter.setTransactions(hoverResults);
+                transactionAdapter.setTransactions(hoverResults);
+            }
+        });
+        mViewModel.getAllActionVariablesByActionId().observe(this, new Observer<List<HoverActionVariable>>() {
+
+            @Override
+            public void onChanged(List<HoverActionVariable> hoverActionVariables) {
+                actionVariableListAdapter.setActionVariables(hoverActionVariables);
             }
         });
     }
@@ -87,5 +103,21 @@ public class ActionDetailFragment extends Fragment {
         Bundle b = data.getExtras();
         Log.d("ActionDetailFragment","has action_id "+ b.containsKey("action_id"));
         mViewModel.insertTransaction(data);
+    }
+
+    public Intent initializeHoverParametersBuilder() throws NullPointerException {
+        HoverParameters.Builder hoverParametersBuilder = new HoverParameters.Builder(getActivity())
+                .request(mActionId)
+                .style(R.style.SDKTheme);
+
+        for (int i = 0; i < actionVariableListAdapter.getItemCount(); i++) {
+            HoverActionVariable va = ((HoverActionVariableListAdapter.VariableViewHolder) actionVariableRecyclerView.findViewHolderForAdapterPosition(i)).actionVariable;
+
+            if (va.value == null || va.value.isEmpty())
+                throw new NullPointerException("You must provide a value for " + va.value);
+            hoverParametersBuilder.extra(va.name, va.value);
+
+        }
+        return hoverParametersBuilder.buildIntent();
     }
 }

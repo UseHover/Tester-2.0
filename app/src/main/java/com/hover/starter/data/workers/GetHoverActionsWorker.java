@@ -8,11 +8,14 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.hover.starter.data.AppDatabase;
+import com.hover.starter.data.actionVariables.HoverActionVariable;
+import com.hover.starter.data.actionVariables.HoverActionVariableDao;
 import com.hover.starter.data.actions.HoverAction;
 import com.hover.starter.data.actions.HoverActionDao;
 import com.hover.starter.network.NetworkOps;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -20,12 +23,15 @@ import java.io.IOException;
 public class GetHoverActionsWorker extends Worker {
 
     private static final String TAG = "GetHoverActionsWorker";
-    private final HoverActionDao mDao;
+    private final HoverActionDao mActionDao;
+    private final HoverActionVariableDao mActionVariableDao;
     private final NetworkOps mNetworkOps;
 
     public GetHoverActionsWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
-        mDao = AppDatabase.getInstance(context).actionDao();
+        mActionDao = AppDatabase.getInstance(context).actionDao();
+        // initialize HoverActionVariable DAO
+        mActionVariableDao = AppDatabase.getInstance(context).actionTransactionDao();
         mNetworkOps = new NetworkOps(context);
     }
 
@@ -34,10 +40,24 @@ public class GetHoverActionsWorker extends Worker {
         try {
             String actions = mNetworkOps.download("custom_actions");
             JSONArray jsonArray = new JSONArray(actions);
-            mDao.deleteAll();
+            mActionDao.deleteAll();
             for (int i = 0; i < jsonArray.length(); i++) {
-                HoverAction action = new HoverAction(jsonArray.getJSONObject(i));
-                mDao.insert(action);
+                JSONObject actionJson = jsonArray.getJSONObject(i);
+                HoverAction action = new HoverAction(actionJson);
+                // initialize HoverActionVariable
+
+                mActionDao.insert(action);
+                JSONArray variables = actionJson.getJSONArray("custom_steps");
+                for (int v = 0; v < variables.length(); v++) {
+                    if (variables.getJSONObject(v).getBoolean("is_param")) {
+                        HoverActionVariable actionVariable = new HoverActionVariable(action.uid,
+                                variables.getJSONObject(v).getString("value"));
+                        mActionVariableDao.insert(actionVariable);
+                    }
+                }
+
+                // insert HoverActionVariable
+
             }
         } catch (IOException e) {
             Log.d(TAG, "download failed: " + e.getMessage(), e);

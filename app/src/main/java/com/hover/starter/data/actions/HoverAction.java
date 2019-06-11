@@ -48,9 +48,6 @@ public class HoverAction {
     @ColumnInfo(name = "action_sim")
     public String actionSim;
 
-    @ColumnInfo(name = "action_variables")
-    public String actionVariables;
-
     @ColumnInfo(name = "action_pin")
     public String actionPin;
 

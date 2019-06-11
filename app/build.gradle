@@ -40,6 +40,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.1.0-alpha07"
     androidTestImplementation "androidx.room:room-testing:2.1.0-alpha07"
 
+    // Gson components
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha04"
