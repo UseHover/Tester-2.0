@@ -12,6 +12,6 @@ public class TransactionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String uuid = intent.getStringExtra("uuid");
-        Log.d("TransactionReceiver", uuid);
+        Log.e("TransactionReceiver", uuid);
     }
 }
