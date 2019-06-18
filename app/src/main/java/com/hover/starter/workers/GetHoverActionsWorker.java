@@ -1,4 +1,4 @@
-package com.hover.starter.data.workers;
+package com.hover.starter.workers;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.hover.starter.data.AppDatabase;
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actionVariables.HoverActionVariableDao;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.actions.HoverActionDao;
+import com.hover.starter.AppDatabase;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverActionVariableDao;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverActionDao;
 import com.hover.starter.network.NetworkOps;
 
 import org.json.JSONArray;

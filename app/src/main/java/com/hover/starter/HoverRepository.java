@@ -1,4 +1,4 @@
-package com.hover.starter.data;
+package com.hover.starter;
 
 import android.app.Application;
 
@@ -6,13 +6,13 @@ import androidx.lifecycle.LiveData;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actionVariables.HoverActionVariableDao;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.actions.HoverActionDao;
-import com.hover.starter.data.transactions.HoverTransaction;
-import com.hover.starter.data.transactions.HoverTransactionDao;
-import com.hover.starter.data.workers.GetHoverActionsWorker;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverActionVariableDao;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverActionDao;
+import com.hover.starter.actions.data.HoverTransaction;
+import com.hover.starter.actions.data.HoverTransactionDao;
+import com.hover.starter.workers.GetHoverActionsWorker;
 
 import java.util.List;
 

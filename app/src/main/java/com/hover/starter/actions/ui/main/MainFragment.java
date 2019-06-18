@@ -1,4 +1,4 @@
-package com.hover.starter.ui.main;
+package com.hover.starter.actions.ui.main;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.hover.starter.MainActivity;
 import com.hover.starter.PermissionsListener;
 import com.hover.starter.R;
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
 import java.util.List;
 

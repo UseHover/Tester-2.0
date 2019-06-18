@@ -1,4 +1,4 @@
-package com.hover.starter.data;
+package com.hover.starter;
 
 import android.content.Context;
 
@@ -8,12 +8,12 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actionVariables.HoverActionVariableDao;
-import com.hover.starter.data.transactions.HoverTransaction;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.actions.HoverActionDao;
-import com.hover.starter.data.transactions.HoverTransactionDao;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverActionVariableDao;
+import com.hover.starter.actions.data.HoverTransaction;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverActionDao;
+import com.hover.starter.actions.data.HoverTransactionDao;
 
 @Database(entities = {HoverAction.class, HoverTransaction.class, HoverActionVariable.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {

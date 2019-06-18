@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.starter.R;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.actions.data.HoverTransaction;
 
 import java.util.List;
 

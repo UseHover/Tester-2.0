@@ -1,4 +1,4 @@
-package com.hover.starter.data.actionVariables;
+package com.hover.starter.actions.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
 
 @Entity(tableName = "action_variables", foreignKeys = @ForeignKey(entity = HoverAction.class,

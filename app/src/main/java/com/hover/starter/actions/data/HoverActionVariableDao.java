@@ -1,4 +1,4 @@
-package com.hover.starter.data.actionVariables;
+package com.hover.starter.actions.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

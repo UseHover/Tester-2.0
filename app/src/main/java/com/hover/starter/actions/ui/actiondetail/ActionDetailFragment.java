@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.sdk.api.HoverParameters;
-import com.hover.starter.ActionDetail;
 import com.hover.starter.R;
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverTransaction;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class ActionDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.action_detail_fragment, container, false);
         RecyclerView transactionRecyclerView = rootView.findViewById(R.id.transaction_list);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        transactionAdapter = new HoverTransactionListAdapter(getActivity(), (ActionDetail) getActivity());
+        transactionAdapter = new HoverTransactionListAdapter(getActivity(), (ActionDetailActivity) getActivity());
         transactionRecyclerView.setAdapter(transactionAdapter);
 
         actionVariableRecyclerView = rootView.findViewById(R.id.variable_list);
@@ -95,7 +94,7 @@ public class ActionDetailFragment extends Fragment {
     }
 
     private void setActionDetails(HoverAction action) {
-        ((ActionDetail) getActivity()).setTitle(action.uid + ". " + action.actionName,
+        ((ActionDetailActivity) getActivity()).setTitle(action.uid + ". " + action.actionName,
                 action.actionNetwork);
     }
 

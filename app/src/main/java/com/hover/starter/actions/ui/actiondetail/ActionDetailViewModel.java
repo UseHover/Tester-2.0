@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.app.Application;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hover.starter.data.HoverRepository;
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.HoverRepository;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverTransaction;
 
 import java.util.List;
 import java.util.concurrent.Executor;

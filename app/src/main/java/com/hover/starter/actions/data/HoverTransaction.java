@@ -1,19 +1,15 @@
-package com.hover.starter.data.transactions;
+package com.hover.starter.actions.data;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
-
-import java.util.HashMap;
-import java.util.List;
 
 import static androidx.room.ForeignKey.CASCADE;
 
