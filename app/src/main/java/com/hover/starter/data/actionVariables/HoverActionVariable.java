@@ -9,7 +9,10 @@ import androidx.room.PrimaryKey;
 import com.hover.starter.data.actions.HoverAction;
 
 
-@Entity(tableName = "action_variables")
+@Entity(tableName = "action_variables", foreignKeys = @ForeignKey(entity = HoverAction.class,
+        parentColumns = "uid",
+        childColumns = "action_id",
+        onDelete = ForeignKey.CASCADE))
 public class HoverActionVariable {
 
     public HoverActionVariable(String actionId, String name) {
