@@ -14,7 +14,6 @@
         android:paddingEnd="16dp"
         android:textAlignment="textStart"
         android:textSize="18sp"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:text="Balance"/>
 
 </LinearLayout>

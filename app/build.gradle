@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -8,13 +10,24 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "0.1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+    compileOptions {
+        incremental true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -37,12 +50,40 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.1.0"
     implementation 'com.google.android.material:material:1.0.0'
 
+    // Kotlin
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     // Hover SDK
-    implementation('com.hover:android-sdk:1.0.1') { transitive = true }
+    implementation('com.hover:android-sdk:1.2.1') { transitive = true }
+
+//    debugImplementation project(":hover.sdk")
+    debugImplementation 'com.android.volley:volley:1.1.+'
+    debugImplementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    debugImplementation "android.arch.work:work-runtime:1.0.1"
+    debugImplementation 'com.google.android.gms:play-services-analytics:16.0.7'
+    debugImplementation 'io.sentry:sentry-android:1.7.21'
 
     // Tests
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
+    debugImplementation 'androidx.test:core:1.2.0'
+    debugImplementation 'androidx.test:rules:1.2.0'
+    debugImplementation 'androidx.test:runner:1.2.0'
+    debugImplementation 'androidx.test.ext:junit:1.1.1'
+
+    // TODO: Added this for some reason
+    testImplementation 'com.google.truth:truth:0.42'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    androidTestImplementation 'org.robolectric:annotations:4.3'
+
+    // TODO: Are these being used? AccessibilityChecks?
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
+
     androidTestImplementation "androidx.room:room-testing:2.1.0"
+    debugImplementation 'androidx.fragment:fragment-testing:1.1.0-beta01'
 }
