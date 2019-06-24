@@ -5,6 +5,7 @@ import android.app.UiAutomation;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -41,19 +42,15 @@ public class SdkPermissionSummaryTest {
 	@Rule
 	public ActivityScenarioRule<PermissionActivity> activityScenarioRule = new ActivityScenarioRule<>(PermissionActivity.class);
 
-//	public ActivityScenario<PermissionActivity> startPermActivity() {
-//		return ActivityScenario.launch(PermissionActivity.class);
-//	}
-
 	@Test
 	public void showsPermissionSummary() {
-//		ActivityScenario as = startPermActivity();
 		activityScenarioRule.getScenario().recreate();
 		onView(withText(R.string.hsdk_perms_needed)).check(matches(isDisplayed()));
 		onView(withText(R.string.hsdk_want_phone)).check(matches(isDisplayed()));
 		onView(withText(R.string.hsdk_want_sms)).check(matches(isDisplayed()));
-		// FIXME: This permission doesn't reset properly
-//		onView(withText(R.string.hsdk_want_overlay)).check(matches(isDisplayed()));
+		// Bug in Android, Overlay permission never gets reset
+		if (!PermissionHelper.hasOverlayPerm(ApplicationProvider.getApplicationContext()))
+		    onView(withText(R.string.hsdk_want_overlay)).check(matches(isDisplayed()));
 		onView(withText(R.string.hsdk_want_accessibility)).check(matches(isDisplayed()));
 	}
 
