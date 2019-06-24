@@ -38,13 +38,13 @@ public class GetHoverActionsWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            String actions = mNetworkOps.download("custom_actions");
+            String actions = mNetworkOps.makeRequest("custom_actions");
+            Log.e(TAG, "actions " + actions);
             JSONArray jsonArray = new JSONArray(actions);
             mActionDao.deleteAll();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject actionJson = jsonArray.getJSONObject(i);
                 HoverAction action = new HoverAction(actionJson);
-                // initialize HoverActionVariable
 
                 mActionDao.insert(action);
                 JSONArray variables = actionJson.getJSONArray("custom_steps");
@@ -55,15 +55,13 @@ public class GetHoverActionsWorker extends Worker {
                         mActionVariableDao.insert(actionVariable);
                     }
                 }
-
-                // insert HoverActionVariable
-
             }
         } catch (IOException e) {
-            Log.d(TAG, "download failed: " + e.getMessage(), e);
+            Log.e(TAG, "Request failed: " + e.getMessage(), e);
+            Log.e(TAG, "Please check that you have the correct API token (com.hover.ApiKey) in your AndroidManifest.xml");
             return Result.failure();
         } catch (JSONException e) {
-            Log.d(TAG, "Failed to parse json array:" + e.getMessage(), e);
+            Log.e(TAG, "Failed to parse json array:" + e.getMessage(), e);
             return Result.failure();
         }
 
