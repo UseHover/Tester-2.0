@@ -52,14 +52,11 @@ public class HoverActionListAdapter
             holder.actionId = current.uid;
             holder.actionItemView.setText(current.getActionName());
         } else {
-            holder.actionItemView.setText("No actions fetched yet");
+            holder.actionItemView.setText(R.string.no_actions);
         }
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onActionListItemClickListener != null)
-                    onActionListItemClickListener.onActionListItemClick(holder.actionId);
-            }
+        holder.mView.setOnClickListener(v -> {
+            if (onActionListItemClickListener != null)
+                onActionListItemClickListener.onActionListItemClick(holder.actionId);
         });
     }
 

@@ -23,13 +23,10 @@ public class ActionViewModel extends AndroidViewModel {
     }
 
     LiveData<List<HoverAction>> getAllActions() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HoverAction action = mRepository.getAnyAction();
-                if (action == null) {
-                    mRepository.loadActions();
-                }
+        new Thread(() -> {
+            HoverAction action = mRepository.getAnyAction();
+            if (action == null) {
+                mRepository.loadActions();
             }
         }).start();
 

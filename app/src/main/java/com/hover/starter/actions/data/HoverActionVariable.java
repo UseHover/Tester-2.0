@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.hover.starter.actions.data.HoverAction;
@@ -12,7 +13,7 @@ import com.hover.starter.actions.data.HoverAction;
 @Entity(tableName = "action_variables", foreignKeys = @ForeignKey(entity = HoverAction.class,
         parentColumns = "uid",
         childColumns = "action_id",
-        onDelete = ForeignKey.CASCADE))
+        onDelete = ForeignKey.CASCADE), indices = {@Index("action_id")})
 public class HoverActionVariable {
 
     public HoverActionVariable(String actionId, String name) {

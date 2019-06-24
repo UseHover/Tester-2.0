@@ -55,14 +55,11 @@ public class MainFragment extends Fragment {
 
         final View button = rootView.findViewById(R.id.update_config);
         button.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getActivity(),
-                                getString(R.string.updating),
-                                Toast.LENGTH_SHORT).show();
-                        mActionViewModel.loadAllActions();
-                    }
+                v -> {
+                    Toast.makeText(getActivity(),
+                            getString(R.string.updating),
+                            Toast.LENGTH_SHORT).show();
+                    mActionViewModel.loadAllActions();
                 }
         );
 
@@ -73,12 +70,8 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActionViewModel = ViewModelProviders.of(this).get(ActionViewModel.class);
-        mActionViewModel.getAllActions().observe(this, new Observer<List<HoverAction>>() {
-            @Override
-            public void onChanged(@Nullable final List<HoverAction> actions) {
-                adapter.setActions(actions);
-            }
-        });
+        //noinspection Convert2Lambda
+        mActionViewModel.getAllActions().observe(this, actions -> adapter.setActions(actions));
     }
 
     @Override

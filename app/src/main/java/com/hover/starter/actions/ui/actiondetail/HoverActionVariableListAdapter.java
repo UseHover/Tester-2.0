@@ -28,8 +28,8 @@ public class HoverActionVariableListAdapter extends RecyclerView.Adapter<HoverAc
         private VariableViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mTextLayout = (TextInputLayout) mView.findViewById(R.id.variable_input);
-            mEdit = (EditText) mView.findViewById(R.id.edit);
+            mTextLayout = mView.findViewById(R.id.variable_input);
+            mEdit = mView.findViewById(R.id.edit);
         }
     }
 
@@ -51,8 +51,7 @@ public class HoverActionVariableListAdapter extends RecyclerView.Adapter<HoverAc
     @Override
     public void onBindViewHolder(final HoverActionVariableListAdapter.VariableViewHolder holder, int position) {
         if (mVariables != null) {
-            HoverActionVariable current = mVariables.get(position);
-            holder.actionVariable = current;
+            holder.actionVariable = mVariables.get(position);
             holder.mTextLayout.setHint(holder.actionVariable.name);
             holder.mEdit.setText(holder.actionVariable.value);
             holder.mEdit.addTextChangedListener(new TextWatcher() {

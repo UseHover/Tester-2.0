@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Hover Starter App</string>
-    <string name="grant_permissions">Grant Permissions</string>
     <string name="url_builder">%1$s%2$s</string>
     <string name="base_url">https://www.usehover.com/sdk/</string>
     <string name="error_network">Failed. Please make sure you are connected to the internet</string>
     <string name="updating">Updating...</string>
-    <string name="updated">Updated all configs.</string>
     <string name="subtitle">Service name</string>
     <string name="title">Action Name</string>
     <string name="transactions">Transactions</string>
+    <string name="status_icon_description">Visual representation of the transaction\'s status</string>
+    <string name="no_actions">No actions fetched yet</string>
+    <string name="no_transactions">No transactions captured yet</string>
 </resources>

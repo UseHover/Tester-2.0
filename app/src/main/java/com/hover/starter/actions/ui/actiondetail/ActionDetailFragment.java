@@ -29,7 +29,7 @@ public class ActionDetailFragment extends Fragment {
     private HoverTransactionListAdapter transactionAdapter;
     private HoverActionVariableListAdapter actionVariableListAdapter;
     private RecyclerView actionVariableRecyclerView;
-    public String mActionId;
+    private String mActionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,26 +71,9 @@ public class ActionDetailFragment extends Fragment {
                 .get(ActionDetailViewModel.class);
 
         if (getArguments().containsKey("uuid")) mViewModel.insertTransaction(getArguments());
-        mViewModel.getById().observe(this, new Observer<HoverAction>() {
-
-            @Override
-            public void onChanged(HoverAction action) {
-                setActionDetails(action);
-            }
-        });
-        mViewModel.getAllTransactionsByActionId().observe(this, new Observer<List<HoverTransaction>>() {
-            @Override
-            public void onChanged(List<HoverTransaction> hoverResults) {
-                transactionAdapter.setTransactions(hoverResults);
-            }
-        });
-        mViewModel.getAllActionVariablesByActionId().observe(this, new Observer<List<HoverActionVariable>>() {
-
-            @Override
-            public void onChanged(List<HoverActionVariable> hoverActionVariables) {
-                actionVariableListAdapter.setActionVariables(hoverActionVariables);
-            }
-        });
+        mViewModel.getById().observe(this, action -> setActionDetails(action));
+        mViewModel.getAllTransactionsByActionId().observe(this, hoverResults -> transactionAdapter.setTransactions(hoverResults));
+        mViewModel.getAllActionVariablesByActionId().observe(this, hoverActionVariables -> actionVariableListAdapter.setActionVariables(hoverActionVariables));
     }
 
     private void setActionDetails(HoverAction action) {

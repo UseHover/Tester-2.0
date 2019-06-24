@@ -49,13 +49,10 @@ public class ActionDetailActivity extends AppCompatActivity implements HoverTran
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
         final View titleLayout = findViewById(R.id.layout_title);
-        titleLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                CollapsingToolbarLayout.LayoutParams layoutParams = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
-                layoutParams.height = titleLayout.getHeight() + getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
-                toolbar.setLayoutParams(layoutParams);
-            }
+        titleLayout.post(() -> {
+            CollapsingToolbarLayout.LayoutParams layoutParams = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
+            layoutParams.height = titleLayout.getHeight() + getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
+            toolbar.setLayoutParams(layoutParams);
         });
     }
 

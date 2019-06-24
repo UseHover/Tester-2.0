@@ -51,24 +51,16 @@ public class ActionDetailViewModel extends AndroidViewModel {
 
 
     void loadAction(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HoverAction a = mRepository.getAction(mActionId);
-                action.postValue(a);
-            }
+        new Thread(() -> {
+            HoverAction a = mRepository.getAction(mActionId);
+            action.postValue(a);
         }).start();
     }
 
     void insertTransaction(Intent data) {
         final HoverTransaction transaction = new HoverTransaction(data);
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mRepository.insertTransaction(transaction);
-            }
-        });
+        executor.execute(() -> mRepository.insertTransaction(transaction));
     }
 
     void insertTransaction(Bundle data) {
@@ -78,16 +70,13 @@ public class ActionDetailViewModel extends AndroidViewModel {
         Log.d("ActionDetailViewModel", "status: " + transaction.status);
         Log.d("ActionDetailViewModel", "responseMessage: " + transaction.responseMessage);
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                HoverTransaction existingTransaction = mRepository.getTransaction(transaction.uuid);
-                if (existingTransaction != null) {
-                    transaction.id = existingTransaction.id;
-                    mRepository.updateTransaction(transaction);
-                } else {
-                    mRepository.insertTransaction(transaction);
-                }
+        executor.execute(() -> {
+            HoverTransaction existingTransaction = mRepository.getTransaction(transaction.uuid);
+            if (existingTransaction != null) {
+                transaction.id = existingTransaction.id;
+                mRepository.updateTransaction(transaction);
+            } else {
+                mRepository.insertTransaction(transaction);
             }
         });
     }

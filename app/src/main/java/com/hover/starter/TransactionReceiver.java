@@ -15,7 +15,6 @@ public class TransactionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String uuid = intent.getStringExtra("uuid");
         String actionId = intent.getStringExtra("action_id");
-        String[] ussdMessages = intent.getStringArrayExtra("ussd_messages");
         String responseMessage = intent.getStringExtra("response_message");
         String status = intent.getStringExtra("status");
         String statusMeaning = intent.getStringExtra("status_meaning");

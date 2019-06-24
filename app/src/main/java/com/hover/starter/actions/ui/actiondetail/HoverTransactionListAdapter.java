@@ -62,15 +62,12 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
             holder.timestampTextView.setText(date);
             holder.statusIcon.setImageResource(getIcon(current.status));
         } else {
-            holder.responseMessageTextView.setText("No transactions captured yet");
+            holder.responseMessageTextView.setText(R.string.no_transactions);
         }
 
-        holder.mView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if (onTransactionListItemClickListener != null){
-                    onTransactionListItemClickListener.onTransactionListItemClick(holder.transactionId);
-                }
+        holder.mView.setOnClickListener(v -> {
+            if (onTransactionListItemClickListener != null){
+                onTransactionListItemClickListener.onTransactionListItemClick(holder.transactionId);
             }
         });
     }
