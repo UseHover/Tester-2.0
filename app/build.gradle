@@ -56,9 +56,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Hover SDK
-//    implementation('com.hover:android-sdk:1.2.1') { transitive = true }
+    implementation('com.hover:android-sdk:1.2.1') { transitive = true }
 
-    debugImplementation project(":hover.sdk")
     debugImplementation 'com.android.volley:volley:1.1.1'
     debugImplementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     debugImplementation 'com.google.android.gms:play-services-analytics:16.0.7'
