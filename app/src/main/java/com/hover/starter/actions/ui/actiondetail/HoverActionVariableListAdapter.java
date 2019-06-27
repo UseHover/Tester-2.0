@@ -1,22 +1,18 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hover.starter.R;
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.actions.data.HoverActionVariable;
 
 import java.util.List;
 
@@ -32,8 +28,8 @@ public class HoverActionVariableListAdapter extends RecyclerView.Adapter<HoverAc
         private VariableViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mTextLayout = (TextInputLayout) mView.findViewById(R.id.variable_input);
-            mEdit = (EditText) mView.findViewById(R.id.edit);
+            mTextLayout = mView.findViewById(R.id.variable_input);
+            mEdit = mView.findViewById(R.id.edit);
         }
     }
 
@@ -55,8 +51,7 @@ public class HoverActionVariableListAdapter extends RecyclerView.Adapter<HoverAc
     @Override
     public void onBindViewHolder(final HoverActionVariableListAdapter.VariableViewHolder holder, int position) {
         if (mVariables != null) {
-            HoverActionVariable current = mVariables.get(position);
-            holder.actionVariable = current;
+            holder.actionVariable = mVariables.get(position);
             holder.mTextLayout.setHint(holder.actionVariable.name);
             holder.mEdit.setText(holder.actionVariable.value);
             holder.mEdit.addTextChangedListener(new TextWatcher() {

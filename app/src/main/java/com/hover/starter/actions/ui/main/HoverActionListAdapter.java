@@ -1,4 +1,4 @@
-package com.hover.starter.ui.main;
+package com.hover.starter.actions.ui.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.starter.R;
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
 import java.util.List;
 
@@ -52,14 +52,11 @@ public class HoverActionListAdapter
             holder.actionId = current.uid;
             holder.actionItemView.setText(current.getActionName());
         } else {
-            holder.actionItemView.setText("No actions fetched yet");
+            holder.actionItemView.setText(R.string.no_actions);
         }
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onActionListItemClickListener != null)
-                    onActionListItemClickListener.onActionListItemClick(holder.actionId);
-            }
+        holder.mView.setOnClickListener(v -> {
+            if (onActionListItemClickListener != null)
+                onActionListItemClickListener.onActionListItemClick(holder.actionId);
         });
     }
 

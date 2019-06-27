@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.app.Application;
 

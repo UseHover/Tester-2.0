@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.starter.R;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.actions.data.HoverTransaction;
 
 import java.util.List;
 
@@ -62,15 +62,12 @@ public class HoverTransactionListAdapter extends RecyclerView.Adapter<HoverTrans
             holder.timestampTextView.setText(date);
             holder.statusIcon.setImageResource(getIcon(current.status));
         } else {
-            holder.responseMessageTextView.setText("No transactions captured yet");
+            holder.responseMessageTextView.setText(R.string.no_transactions);
         }
 
-        holder.mView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if (onTransactionListItemClickListener != null){
-                    onTransactionListItemClickListener.onTransactionListItemClick(holder.transactionId);
-                }
+        holder.mView.setOnClickListener(v -> {
+            if (onTransactionListItemClickListener != null){
+                onTransactionListItemClickListener.onTransactionListItemClick(holder.transactionId);
             }
         });
     }

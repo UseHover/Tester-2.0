@@ -1,23 +1,25 @@
-package com.hover.starter.data.transactions;
+package com.hover.starter.actions.data;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
-
-import java.util.HashMap;
-import java.util.List;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "transactions", foreignKeys = @ForeignKey(entity = HoverAction.class, parentColumns = "uid", childColumns = "action_id", onDelete = CASCADE))
+@Entity(tableName = "transactions",
+        foreignKeys = @ForeignKey(entity = HoverAction.class,
+                parentColumns = "uid",
+                childColumns = "action_id",
+                onDelete = CASCADE),
+        indices = {@Index("action_id")})
 public class HoverTransaction {
 
     public HoverTransaction() {
@@ -83,9 +85,9 @@ public class HoverTransaction {
     private String processUssdMessages(String[] ussdMessagesArray) {
         if (ussdMessagesArray == null)
             return "";
-        StringBuffer ussdMessages = new StringBuffer();
-        for (int i = 0; i < ussdMessagesArray.length; i++) {
-            ussdMessages.append(ussdMessagesArray[i]);
+        StringBuilder ussdMessages = new StringBuilder();
+        for (String s : ussdMessagesArray) {
+            ussdMessages.append(s);
         }
         return ussdMessages.toString();
     }

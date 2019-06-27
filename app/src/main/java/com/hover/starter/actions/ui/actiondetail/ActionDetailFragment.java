@@ -1,4 +1,4 @@
-package com.hover.starter.ui.actions;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hover.sdk.api.HoverParameters;
-import com.hover.starter.ActionDetail;
 import com.hover.starter.R;
-import com.hover.starter.data.actionVariables.HoverActionVariable;
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.transactions.HoverTransaction;
+import com.hover.starter.actions.data.HoverActionVariable;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.actions.data.HoverTransaction;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ActionDetailFragment extends Fragment {
     private HoverTransactionListAdapter transactionAdapter;
     private HoverActionVariableListAdapter actionVariableListAdapter;
     private RecyclerView actionVariableRecyclerView;
-    public String mActionId;
+    private String mActionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class ActionDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.action_detail_fragment, container, false);
         RecyclerView transactionRecyclerView = rootView.findViewById(R.id.transaction_list);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        transactionAdapter = new HoverTransactionListAdapter(getActivity(), (ActionDetail) getActivity());
+        transactionAdapter = new HoverTransactionListAdapter(getActivity(), (ActionDetailActivity) getActivity());
         transactionRecyclerView.setAdapter(transactionAdapter);
 
         actionVariableRecyclerView = rootView.findViewById(R.id.variable_list);
@@ -72,30 +71,13 @@ public class ActionDetailFragment extends Fragment {
                 .get(ActionDetailViewModel.class);
 
         if (getArguments().containsKey("uuid")) mViewModel.insertTransaction(getArguments());
-        mViewModel.getById().observe(this, new Observer<HoverAction>() {
-
-            @Override
-            public void onChanged(HoverAction action) {
-                setActionDetails(action);
-            }
-        });
-        mViewModel.getAllTransactionsByActionId().observe(this, new Observer<List<HoverTransaction>>() {
-            @Override
-            public void onChanged(List<HoverTransaction> hoverResults) {
-                transactionAdapter.setTransactions(hoverResults);
-            }
-        });
-        mViewModel.getAllActionVariablesByActionId().observe(this, new Observer<List<HoverActionVariable>>() {
-
-            @Override
-            public void onChanged(List<HoverActionVariable> hoverActionVariables) {
-                actionVariableListAdapter.setActionVariables(hoverActionVariables);
-            }
-        });
+        mViewModel.getById().observe(this, action -> setActionDetails(action));
+        mViewModel.getAllTransactionsByActionId().observe(this, hoverResults -> transactionAdapter.setTransactions(hoverResults));
+        mViewModel.getAllActionVariablesByActionId().observe(this, hoverActionVariables -> actionVariableListAdapter.setActionVariables(hoverActionVariables));
     }
 
     private void setActionDetails(HoverAction action) {
-        ((ActionDetail) getActivity()).setTitle(action.uid + ". " + action.actionName,
+        ((ActionDetailActivity) getActivity()).setTitle(action.uid + ". " + action.actionName,
                 action.actionNetwork);
     }
 

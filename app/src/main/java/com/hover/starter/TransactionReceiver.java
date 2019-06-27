@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.hover.starter.data.HoverRepository;
-
-import java.util.Date;
-import java.util.HashMap;
+import com.hover.starter.actions.ui.actiondetail.ActionDetailActivity;
 
 
 public class TransactionReceiver extends BroadcastReceiver {
@@ -18,7 +15,6 @@ public class TransactionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String uuid = intent.getStringExtra("uuid");
         String actionId = intent.getStringExtra("action_id");
-        String[] ussdMessages = intent.getStringArrayExtra("ussd_messages");
         String responseMessage = intent.getStringExtra("response_message");
         String status = intent.getStringExtra("status");
         String statusMeaning = intent.getStringExtra("status_meaning");
@@ -37,7 +33,7 @@ public class TransactionReceiver extends BroadcastReceiver {
         Log.d("TransactionReceiver", "updateTimestamp: " + updateTimestamp);
 
         intent = new Intent(intent);
-        intent.setClass(context, ActionDetail.class);
+        intent.setClass(context, ActionDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

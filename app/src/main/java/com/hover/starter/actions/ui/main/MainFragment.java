@@ -1,4 +1,4 @@
-package com.hover.starter.ui.main;
+package com.hover.starter.actions.ui.main;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.hover.starter.MainActivity;
 import com.hover.starter.PermissionsListener;
 import com.hover.starter.R;
-import com.hover.starter.data.actions.HoverAction;
+import com.hover.starter.actions.data.HoverAction;
 
 import java.util.List;
 
@@ -55,14 +55,11 @@ public class MainFragment extends Fragment {
 
         final View button = rootView.findViewById(R.id.update_config);
         button.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getActivity(),
-                                getString(R.string.updating),
-                                Toast.LENGTH_SHORT).show();
-                        mActionViewModel.loadAllActions();
-                    }
+                v -> {
+                    Toast.makeText(getActivity(),
+                            getString(R.string.updating),
+                            Toast.LENGTH_SHORT).show();
+                    mActionViewModel.loadAllActions();
                 }
         );
 
@@ -73,12 +70,8 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActionViewModel = ViewModelProviders.of(this).get(ActionViewModel.class);
-        mActionViewModel.getAllActions().observe(this, new Observer<List<HoverAction>>() {
-            @Override
-            public void onChanged(@Nullable final List<HoverAction> actions) {
-                adapter.setActions(actions);
-            }
-        });
+        //noinspection Convert2Lambda
+        mActionViewModel.getAllActions().observe(this, actions -> adapter.setActions(actions));
     }
 
     @Override

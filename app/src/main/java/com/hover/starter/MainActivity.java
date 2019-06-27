@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.hover.sdk.api.Hover;
 import com.hover.sdk.permissions.PermissionActivity;
-import com.hover.starter.ui.main.HoverActionListAdapter;
-import com.hover.starter.ui.main.MainFragment;
+import com.hover.starter.actions.ui.actiondetail.ActionDetailActivity;
+import com.hover.starter.actions.ui.main.HoverActionListAdapter;
+import com.hover.starter.actions.ui.main.MainFragment;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener,
         HoverActionListAdapter.OnActionListItemClickListener {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
         Hover.initialize(this);
     }
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 
     @Override
     public void onActionListItemClick(String actionId) {
-        Intent intent = new Intent(this, ActionDetail.class);
+        Intent intent = new Intent(this, ActionDetailActivity.class);
         intent.putExtra("action_id", actionId);
         startActivity(intent);
     }

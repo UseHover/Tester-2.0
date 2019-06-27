@@ -1,4 +1,4 @@
-package com.hover.starter.data.actions;
+package com.hover.starter.actions.data;
 
 import android.util.Log;
 

@@ -1,12 +1,12 @@
-package com.hover.starter.ui.main;
+package com.hover.starter.actions.ui.main;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.hover.starter.data.actions.HoverAction;
-import com.hover.starter.data.HoverRepository;
+import com.hover.starter.actions.data.HoverAction;
+import com.hover.starter.HoverRepository;
 
 import java.util.List;
 
@@ -23,13 +23,10 @@ public class ActionViewModel extends AndroidViewModel {
     }
 
     LiveData<List<HoverAction>> getAllActions() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HoverAction action = mRepository.getAnyAction();
-                if (action == null) {
-                    mRepository.loadActions();
-                }
+        new Thread(() -> {
+            HoverAction action = mRepository.getAnyAction();
+            if (action == null) {
+                mRepository.loadActions();
             }
         }).start();
 

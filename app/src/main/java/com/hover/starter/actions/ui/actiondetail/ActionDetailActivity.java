@@ -1,4 +1,4 @@
-package com.hover.starter;
+package com.hover.starter.actions.ui.actiondetail;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -19,13 +19,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.hover.sdk.api.HoverParameters;
-import com.hover.starter.ui.actions.ActionDetailFragment;
-import com.hover.starter.ui.actions.HoverTransactionListAdapter;
+import com.hover.starter.MainActivity;
+import com.hover.starter.R;
 
-public class ActionDetail extends AppCompatActivity implements HoverTransactionListAdapter.OnTransactionListItemClickListener {
+public class ActionDetailActivity extends AppCompatActivity implements HoverTransactionListAdapter.OnTransactionListItemClickListener {
 
-    private static final String TAG = "ActionDetail";
+    private static final String TAG = "ActionDetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +49,10 @@ public class ActionDetail extends AppCompatActivity implements HoverTransactionL
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
         final View titleLayout = findViewById(R.id.layout_title);
-        titleLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                CollapsingToolbarLayout.LayoutParams layoutParams = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
-                layoutParams.height = titleLayout.getHeight() + getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
-                toolbar.setLayoutParams(layoutParams);
-            }
+        titleLayout.post(() -> {
+            CollapsingToolbarLayout.LayoutParams layoutParams = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
+            layoutParams.height = titleLayout.getHeight() + getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
+            toolbar.setLayoutParams(layoutParams);
         });
     }
 
